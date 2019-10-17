@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://lovectrl-tan.github.io</id>
     <title>LoveCtrl-Tan</title>
-    <updated>2019-10-17T10:08:50.716Z</updated>
+    <updated>2019-10-17T10:12:59.558Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://lovectrl-tan.github.io"/>
     <link rel="self" href="https://lovectrl-tan.github.io/atom.xml"/>
@@ -16,7 +16,8 @@
         <link href="https://lovectrl-tan.github.io/post/sqli-zhu-ru">
         </link>
         <updated>2019-10-17T09:07:25.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="第一关">第一关</h1>
+        <content type="html"><![CDATA[<!-- more -->
+<h1 id="第一关">第一关</h1>
 <p>首先我们进去网页,可以看到他让我们输入ID<br>
 <img src="https://lovectrl-tan.github.io/post-images/1571303427322.png" alt=""><br>
 now,现在我们在网址上输入<code>?id=1</code><br>
