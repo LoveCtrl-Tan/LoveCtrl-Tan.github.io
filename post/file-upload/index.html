@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://lovectrl-tan.github.io/favicon.ico?v=1571491633731">
+<link rel="shortcut icon" href="https://lovectrl-tan.github.io/favicon.ico?v=1571496275908">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://lovectrl-tan.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://lovectrl-tan.github.io">
-        <img src="https://lovectrl-tan.github.io/images/avatar.png?v=1571491633731" class="site-logo">
+        <img src="https://lovectrl-tan.github.io/images/avatar.png?v=1571496275908" class="site-logo">
         <h1 class="site-title">LoveCtrl-Tan</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -96,31 +96,40 @@
             <div class="post-date">2019-10-19</div>
             
             <div class="post-content">
-              <h1>Low<h1>
-它让我们上传一个文件
-![](https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ截图20191019211931.png)
-我们查看源代码
-![](https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ截图20191019212032.png)
-发现它并没有对上传的文件进行过滤，那我们直接上传`php`一句话木马`<?php @eval($_POST[value]);?>`
-![](https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ截图20191019212333.png)
-显示上传成功，我们来打开看看
-![](https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ截图20191019212440.png)
-发现一片空白，这就说明它以及被成功解析啦，接下来我们用`中国蚁剑`来用`value`连接
-![](https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ截图20191019212614.png)
-![](https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ截图20191019212642.png)
-成功连接
+              <h1 id="low">Low</h1>
+<p>它让我们上传一个文件<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019211931.png" alt=""><br>
+我们查看源代码<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019212032.png" alt=""><br>
+发现它并没有对上传的文件进行过滤，那我们直接上传<code>php</code>一句话木马<code>&lt;?php @eval($_POST[value]);?&gt;</code><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019212333.png" alt=""><br>
+显示上传成功，我们来打开看看<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019212440.png" alt=""><br>
+发现一片空白，这就说明它以及被成功解析啦，接下来我们用<code>中国蚁剑</code>来用<code>value</code>连接<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019212614.png" alt=""><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019212642.png" alt=""><br>
+成功连接</p>
+<!-- more -->
+<h1 id="medium">Medium</h1>
+<p>首先我们尝试直接上传<code>php</code>一句话木马<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019223223.png" alt=""><br>
+我们查看源代码<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019223346.png" alt=""><br>
+发现它只能上传图片<code>jpg``png</code>，而且它还限制了大小<br>
+我们可以将<code>php</code>一句话木马的后缀名改成<code>jpg``png</code>然后上传<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019223923.png" alt=""><br>
+接着我们通过<code>burpsuite</code>捉包修改文件后缀名<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019223743.png" alt=""><br>
+我们将上传的<code>jpg</code>改成<code>php</code><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019223754.png" alt=""><br>
+点击上传，发现上传成功<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019223806.png" alt=""><br>
+接下来我们浏览网页，成功解析<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019224215.png" alt=""><br>
+接下来用<code>中国蚁剑</code>连接</p>
 
             </div>
             
-            
-              <div class="next-post">
-                <div class="next">下一篇</div>
-                <a href="https://lovectrl-tan.github.io/post/dvwa">
-                  <h3 class="post-title">
-                    DVWA
-                  </h3>
-                </a>
-              </div>
             
 
             
