@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://lovectrl-tan.github.io</id>
     <title>LoveCtrl-Tan</title>
-    <updated>2019-10-19T12:41:34.766Z</updated>
+    <updated>2019-10-19T12:45:43.320Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://lovectrl-tan.github.io"/>
     <link rel="self" href="https://lovectrl-tan.github.io/atom.xml"/>
@@ -10,64 +10,6 @@
     <logo>https://lovectrl-tan.github.io/images/avatar.png</logo>
     <icon>https://lovectrl-tan.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, LoveCtrl-Tan</rights>
-    <entry>
-        <title type="html"><![CDATA[Less-4]]></title>
-        <id>https://lovectrl-tan.github.io/post/less-4</id>
-        <link href="https://lovectrl-tan.github.io/post/less-4">
-        </link>
-        <updated>2019-10-19T09:23:14.000Z</updated>
-        <summary type="html"><![CDATA[<p>照例输入<code>id</code><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019172428.png" alt=""><br>
-接下来我们根据题目提示来判断是否有SQL注入漏洞<br>
-输入<code>?id=1&quot;) and 1=1--+</code> and <code>?id=1&quot;) and 1=2--+</code><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019172704.png" alt=""><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019172713.png" alt=""><br>
-按照图片返回的信息可以判断它可能存在SQL注入,接着，使用<code>order by 1-99</code>语句查询该数据表的字段数量<br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019173041.png" alt=""><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019173024.png" alt=""><br>
-得到字段数为<code>3</code>,我们使用联合查询<code>union select</code>来查询当前数据库名<br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019173308.png" alt=""><br>
-知道数据库名后，我们用以下命令来查询表名</p>
-<pre><code class="language-URL">select table_name from information_schema.tables where table_schema='security' limit 0,1
-</code></pre>
-<p>当我们取第四个表名<code>limit 3,1</code>之后可以看到<br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019202120.png" alt=""><br>
-接下来我们使用以下命令来查询字段名</p>
-<pre><code class="language-URL">select column_name from information_schema.columns where table_schema='security' and table_name='users' limit 0,1
-</code></pre>
-<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019203001.png" alt=""><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019203013.png" alt=""><br>
-在获取了库名,表名和字段名时，我们就可以构造SQL语句查询数据库的数据</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>照例输入<code>id</code><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019172428.png" alt=""><br>
-接下来我们根据题目提示来判断是否有SQL注入漏洞<br>
-输入<code>?id=1&quot;) and 1=1--+</code> and <code>?id=1&quot;) and 1=2--+</code><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019172704.png" alt=""><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019172713.png" alt=""><br>
-按照图片返回的信息可以判断它可能存在SQL注入,接着，使用<code>order by 1-99</code>语句查询该数据表的字段数量<br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019173041.png" alt=""><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019173024.png" alt=""><br>
-得到字段数为<code>3</code>,我们使用联合查询<code>union select</code>来查询当前数据库名<br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019173308.png" alt=""><br>
-知道数据库名后，我们用以下命令来查询表名</p>
-<pre><code class="language-URL">select table_name from information_schema.tables where table_schema='security' limit 0,1
-</code></pre>
-<p>当我们取第四个表名<code>limit 3,1</code>之后可以看到<br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019202120.png" alt=""><br>
-接下来我们使用以下命令来查询字段名</p>
-<pre><code class="language-URL">select column_name from information_schema.columns where table_schema='security' and table_name='users' limit 0,1
-</code></pre>
-<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019203001.png" alt=""><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019203013.png" alt=""><br>
-在获取了库名,表名和字段名时，我们就可以构造SQL语句查询数据库的数据</p>
-<!-- more -->
-<p>我们在<code>2,3</code>的位置构造下面语句</p>
-<pre><code class="language-URL">select username(password) from security.users limit 0,1
-</code></pre>
-<figure data-type="image" tabindex="1"><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019203303.png" alt=""></figure>
-]]></content>
-    </entry>
     <entry>
         <title type="html"><![CDATA[SQL-LABS]]></title>
         <id>https://lovectrl-tan.github.io/post/sql-labs</id>
