@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://lovectrl-tan.github.io</id>
     <title>LoveCtrl-Tan</title>
-    <updated>2019-10-19T12:39:55.039Z</updated>
+    <updated>2019-10-19T12:41:34.766Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://lovectrl-tan.github.io"/>
     <link rel="self" href="https://lovectrl-tan.github.io/atom.xml"/>
@@ -78,7 +78,7 @@
 <li><a href="https://lovectrl-tan.github.io/post/sqli-zhu-ru/">GET-Error based - Single quotes-String Less-1</a></li>
 <li><a href="https://lovectrl-tan.github.io/post/di-er-guan/">GET-Error based-intiger based Less-2</a></li>
 <li><a href="https://lovectrl-tan.github.io/post/di-san-guan/">GET-Error bases-Single quotes with twist-string Less-3</a></li>
-<li><a href="https://lovectrl-tan.github.io/post/Less-4/">GET -Error based-Double Quotes-String Less-4</a></li>
+<li><a href="https://lovectrl-tan.github.io/post/less-4/">GET -Error based-Double Quotes-String Less-4</a></li>
 </ul>
 ]]></content>
     </entry>
