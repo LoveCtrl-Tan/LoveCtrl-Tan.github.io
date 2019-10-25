@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://lovectrl-tan.github.io/favicon.ico?v=1571975512021">
+<link rel="shortcut icon" href="https://lovectrl-tan.github.io/favicon.ico?v=1571980771717">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://lovectrl-tan.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://lovectrl-tan.github.io">
-        <img src="https://lovectrl-tan.github.io/images/avatar.png?v=1571975512021" class="site-logo">
+        <img src="https://lovectrl-tan.github.io/images/avatar.png?v=1571980771717" class="site-logo">
         <h1 class="site-title">LoveCtrl-Tan</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -91,6 +91,40 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://lovectrl-tan.github.io/post/csrf">
+                  <h2 class="post-title">CSRF</h2>
+                </a>
+                <div class="post-date">
+                  2019-10-25
+                </div>
+                <div class="post-abstract">
+                  <h1 id="low">Low</h1>
+<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191025131138.png" alt=""><br>
+输入我们要修改的密码<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191025131232.png" alt=""><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191025131258.png" alt=""><br>
+我们发现我们的网址变成了</p>
+<pre><code>http://127.0.0.1/dvwa/vulnerabilities/csrf/?password_new=1234&amp;password_conf=1234&amp;Change=Change#
+</code></pre>
+<p>上面的<code>password_new=1234&amp;password_conf=1234&amp;Change=Change#</code><br>
+我们发现，这里的参数就是我们刚才修改的密码<br>
+我们尝试修改网址里的参数</p>
+<pre><code>http://127.0.0.1/dvwa/vulnerabilities/csrf/?password_new=123&amp;password_conf=123&amp;Change=Change#
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191025131544.png" alt=""><br>
+发现它成功修改密码，接下来我们尝试使用修改的密码登录<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191025131652.png" alt=""><br>
+成功登录<br>
+附网页源码<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191025131808.png" alt=""></p>
+
+                </div>
+              </div>
+              
+            </article>
           
             <article class="post-item">
               <div class="left">

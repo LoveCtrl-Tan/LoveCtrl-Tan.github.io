@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>标签列表 | LoveCtrl-Tan</title>
+<title>CSRF | LoveCtrl-Tan</title>
 <meta name="description" content="温故而知新">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -91,10 +91,50 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          <h2 class="tag-list-title">标签列表</h2>
-          <div class="tags-container">
+          <div class="post-detail">
+            <h2 class="post-title">CSRF</h2>
+            <div class="post-date">2019-10-25</div>
             
+            <div class="post-content">
+              <h1 id="low">Low</h1>
+<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191025131138.png" alt=""><br>
+输入我们要修改的密码<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191025131232.png" alt=""><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191025131258.png" alt=""><br>
+我们发现我们的网址变成了</p>
+<pre><code>http://127.0.0.1/dvwa/vulnerabilities/csrf/?password_new=1234&amp;password_conf=1234&amp;Change=Change#
+</code></pre>
+<p>上面的<code>password_new=1234&amp;password_conf=1234&amp;Change=Change#</code><br>
+我们发现，这里的参数就是我们刚才修改的密码<br>
+我们尝试修改网址里的参数</p>
+<pre><code>http://127.0.0.1/dvwa/vulnerabilities/csrf/?password_new=123&amp;password_conf=123&amp;Change=Change#
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191025131544.png" alt=""><br>
+发现它成功修改密码，接下来我们尝试使用修改的密码登录<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191025131652.png" alt=""><br>
+成功登录<br>
+附网页源码<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191025131808.png" alt=""></p>
+<!-- more -->
+<h1 id="medium">Medium</h1>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://lovectrl-tan.github.io/post/dvwa">
+                  <h3 class="post-title">
+                    DVWA
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
           </div>
+
         </div>
       </div>
     </div>
