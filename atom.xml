@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://lovectrl-tan.github.io</id>
     <title>LoveCtrl-Tan</title>
-    <updated>2019-10-25T05:19:35.807Z</updated>
+    <updated>2019-10-25T08:52:07.843Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://lovectrl-tan.github.io"/>
     <link rel="self" href="https://lovectrl-tan.github.io/atom.xml"/>
@@ -11,55 +11,6 @@
     <icon>https://lovectrl-tan.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, LoveCtrl-Tan</rights>
     <entry>
-        <title type="html"><![CDATA[CSRF]]></title>
-        <id>https://lovectrl-tan.github.io/post/csrf</id>
-        <link href="https://lovectrl-tan.github.io/post/csrf">
-        </link>
-        <updated>2019-10-25T05:10:56.000Z</updated>
-        <summary type="html"><![CDATA[<h1 id="low">Low</h1>
-<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191025131138.png" alt=""><br>
-输入我们要修改的密码<br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191025131232.png" alt=""><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191025131258.png" alt=""><br>
-我们发现我们的网址变成了</p>
-<pre><code>http://127.0.0.1/dvwa/vulnerabilities/csrf/?password_new=1234&amp;password_conf=1234&amp;Change=Change#
-</code></pre>
-<p>上面的<code>password_new=1234&amp;password_conf=1234&amp;Change=Change#</code><br>
-我们发现，这里的参数就是我们刚才修改的密码<br>
-我们尝试修改网址里的参数</p>
-<pre><code>http://127.0.0.1/dvwa/vulnerabilities/csrf/?password_new=123&amp;password_conf=123&amp;Change=Change#
-</code></pre>
-<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191025131544.png" alt=""><br>
-发现它成功修改密码，接下来我们尝试使用修改的密码登录<br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191025131652.png" alt=""><br>
-成功登录<br>
-附网页源码<br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191025131808.png" alt=""></p>
-]]></summary>
-        <content type="html"><![CDATA[<h1 id="low">Low</h1>
-<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191025131138.png" alt=""><br>
-输入我们要修改的密码<br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191025131232.png" alt=""><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191025131258.png" alt=""><br>
-我们发现我们的网址变成了</p>
-<pre><code>http://127.0.0.1/dvwa/vulnerabilities/csrf/?password_new=1234&amp;password_conf=1234&amp;Change=Change#
-</code></pre>
-<p>上面的<code>password_new=1234&amp;password_conf=1234&amp;Change=Change#</code><br>
-我们发现，这里的参数就是我们刚才修改的密码<br>
-我们尝试修改网址里的参数</p>
-<pre><code>http://127.0.0.1/dvwa/vulnerabilities/csrf/?password_new=123&amp;password_conf=123&amp;Change=Change#
-</code></pre>
-<p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191025131544.png" alt=""><br>
-发现它成功修改密码，接下来我们尝试使用修改的密码登录<br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191025131652.png" alt=""><br>
-成功登录<br>
-附网页源码<br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191025131808.png" alt=""></p>
-<!-- more -->
-<h1 id="medium">Medium</h1>
-]]></content>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[DVWA]]></title>
         <id>https://lovectrl-tan.github.io/post/dvwa</id>
         <link href="https://lovectrl-tan.github.io/post/dvwa">
@@ -67,7 +18,8 @@
         <updated>2019-10-19T13:13:43.000Z</updated>
         <content type="html"><![CDATA[<ul>
 <li><a href="https://lovectrl-tan.github.io/post/file-upload/">File Upload</a></li>
-<li>[CSRF]</li>
+<li><a href="https://lovectrl-tan.github.io/post/csrf/">CSRF</a></li>
+<li><a href="https://lovectrl-tan.github.io/post/sql-injection/">SQL Injection</a></li>
 </ul>
 ]]></content>
     </entry>
