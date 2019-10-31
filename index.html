@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://lovectrl-tan.github.io/favicon.ico?v=1571996322108">
+<link rel="shortcut icon" href="https://lovectrl-tan.github.io/favicon.ico?v=1572527666540">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://lovectrl-tan.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://lovectrl-tan.github.io">
-        <img src="https://lovectrl-tan.github.io/images/avatar.png?v=1571996322108" class="site-logo">
+        <img src="https://lovectrl-tan.github.io/images/avatar.png?v=1572527666540" class="site-logo">
         <h1 class="site-title">LoveCtrl-Tan</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -91,6 +91,40 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://lovectrl-tan.github.io/post/xssreflected">
+                  <h2 class="post-title">XSS</h2>
+                </a>
+                <div class="post-date">
+                  2019-10-31
+                </div>
+                <div class="post-abstract">
+                  <h1 id="xss简介">XSS简介</h1>
+<p>XSS是跨站脚本攻击(Cross Site Scripting)的简写，为了不与层叠样式表混淆而改写的。此漏洞也是网站存在相当多的漏洞，仅次于SQL注入，攻击者可以使用XSS来绕过访问控制，如同源策略。利用XSS可以窃取账号，网页挂马，发动拒绝服务攻击，发送垃圾邮件等等。</p>
+<h1 id="xss原理及分类">XSS原理及分类</h1>
+<p>XSS形成的原因与SQL注入类似，也是由于程序员在开发过程中没有对用户提交的恶意数据做过滤，转义而直接输出到页面，导致用户可以利用此漏洞执行JavaScript，HTML等代码，和SQL注入不同的是XSS不一定要和数据库交互。XSS没有单一的、标准的分类，一般可以分为非持久型（反射型）、持久型（存储型）。通常人们也增加了第三种——基于DOM的XSS。反射型XSS指用户提交的数据没有存储在数据库中而是直接输出到页面，不具有存储性，一次提交只能执行一次。存储型XSS指用户提交的数据存储在了数据库，用户每一次访问都会触发XSS，一次提交可以一直执行，其危害是XSS中最大的。基于DOM的XSS指用户可以修改浏览器中的DOM节点并显示在浏览器上，从而产生XSS。<a href="http://blog.nsfocus.net/xss-advance/">那年我们看不懂的xss</a></p>
+
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://lovectrl-tan.github.io/post/sql-injectionblind">
+                  <h2 class="post-title">SQL Injection(Blind)</h2>
+                </a>
+                <div class="post-date">
+                  2019-10-31
+                </div>
+                <div class="post-abstract">
+                  
+                </div>
+              </div>
+              
+            </article>
           
             <article class="post-item">
               <div class="left">

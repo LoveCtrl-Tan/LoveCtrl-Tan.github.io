@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>Less-4 | LoveCtrl-Tan</title>
+<title>SQL Injection(Blind) | LoveCtrl-Tan</title>
 <meta name="description" content="温故而知新">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -92,39 +92,40 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">Less-4</h2>
-            <div class="post-date">2019-10-19</div>
+            <h2 class="post-title">SQL Injection(Blind)</h2>
+            <div class="post-date">2019-10-31</div>
             
             <div class="post-content">
-              <p><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019210541.png" alt=""><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019172428.png" alt=""><br>
-我们继续输入<code>?id=1</code>,首先我们来判断是否存在SQL注入漏洞，按照提示我们构建<code>?id&quot;) and 1=1--+</code>和<code>?id=1&quot;) and 1=2--+</code><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019172704.png" alt=""><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019172713.png" alt=""><br>
-我们可以初步判断出它可能存在SQL漏洞，接下来我们来用<code>order by</code>来判断数据表的字段数量<br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019173041.png" alt=""><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019173024.png" alt=""><br>
-该数据表的字段数量为<code>3</code>接下来我们来利用联合查询<code>union select 1,database(),3--+</code>查询数据库名<br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019173308.png" alt=""><br>
-获取库名后，我们构造以下函数来查询表名</p>
-<pre><code>select table_name from information_schema.tables where table_schema='security' limit 0,1
+              <h1 id="low">Low</h1>
+<p>首先我们看到到就是让你输入<code>UserID</code><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191031184653.png" alt=""><br>
+通过输入我们发现，当你输入ID时，它会提示你是否存在该ID<br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191031184731.png" alt=""><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191031184739.png" alt=""><br>
+这种情况，我们可以使用以下几种方法</p>
+<h2 id="报错注入">报错注入</h2>
+<p>这种注入方法是当页面只返回对错时使用的，首先我们来判断字段数<br>
+<code>1' order by</code><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191031185744.png" alt=""><br>
+<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191031185757.png" alt=""><br>
+判断字段数为<code>2</code>，现在我们来认识几个函数</p>
+<pre><code>substr(string,start,length)，返回字符串的一部分。
+string-指定要截取的字符串。
+start-必需，规定在字符串的何处开始。
+length-可选，指定要截取的字符串长度，缺省时返回字符表达式的值结束前的全部字符。
 </code></pre>
-<p>当我们查询到<code>3</code>后可以看到<br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019202120.png" alt=""><br>
-知道了库名和表名之后，我们开始查询字段名，我们构造以<code>users</code>表名的查询语句</p>
-<pre><code>select column_name from information_schema.columns where table_schema='security' and table_name='users' limit 0,1
-</code></pre>
-<p>当我们查询到<code>2,3</code>时，我们可以看到<br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019203001.png" alt=""><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019203013.png" alt=""><br>
-现在我们知道了库名,表名，字段名.我们就可以构造SQL语句查询数据库的数据<br>
-我们在<code>2,3</code>的位置插入</p>
-<pre><code>select username(password) from security.users limit 0,1
-</code></pre>
-<figure data-type="image" tabindex="1"><img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%88%AA%E5%9B%BE20191019203303.png" alt=""></figure>
 
             </div>
             
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://lovectrl-tan.github.io/post/dvwa">
+                  <h3 class="post-title">
+                    DVWA
+                  </h3>
+                </a>
+              </div>
             
 
             

@@ -1,27 +1,102 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://lovectrl-tan.github.io</id>
-    <title>LoveCtrl-Tan</title>
-    <updated>2019-10-31T13:14:37.961Z</updated>
-    <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://lovectrl-tan.github.io"/>
-    <link rel="self" href="https://lovectrl-tan.github.io/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
-    <logo>https://lovectrl-tan.github.io/images/avatar.png</logo>
-    <icon>https://lovectrl-tan.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2019, LoveCtrl-Tan</rights>
-    <entry>
-        <title type="html"><![CDATA[XSS]]></title>
-        <id>https://lovectrl-tan.github.io/post/xssreflected</id>
-        <link href="https://lovectrl-tan.github.io/post/xssreflected">
-        </link>
-        <updated>2019-10-31T11:06:54.000Z</updated>
-        <summary type="html"><![CDATA[<h1 id="xss简介">XSS简介</h1>
-<p>XSS是跨站脚本攻击(Cross Site Scripting)的简写，为了不与层叠样式表混淆而改写的。此漏洞也是网站存在相当多的漏洞，仅次于SQL注入，攻击者可以使用XSS来绕过访问控制，如同源策略。利用XSS可以窃取账号，网页挂马，发动拒绝服务攻击，发送垃圾邮件等等。</p>
-<h1 id="xss原理及分类">XSS原理及分类</h1>
-<p>XSS形成的原因与SQL注入类似，也是由于程序员在开发过程中没有对用户提交的恶意数据做过滤，转义而直接输出到页面，导致用户可以利用此漏洞执行JavaScript，HTML等代码，和SQL注入不同的是XSS不一定要和数据库交互。XSS没有单一的、标准的分类，一般可以分为非持久型（反射型）、持久型（存储型）。通常人们也增加了第三种——基于DOM的XSS。反射型XSS指用户提交的数据没有存储在数据库中而是直接输出到页面，不具有存储性，一次提交只能执行一次。存储型XSS指用户提交的数据存储在了数据库，用户每一次访问都会触发XSS，一次提交可以一直执行，其危害是XSS中最大的。基于DOM的XSS指用户可以修改浏览器中的DOM节点并显示在浏览器上，从而产生XSS。<a href="http://blog.nsfocus.net/xss-advance/">那年我们看不懂的xss</a></p>
-]]></summary>
-        <content type="html"><![CDATA[<h1 id="xss简介">XSS简介</h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>XSS | LoveCtrl-Tan</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://lovectrl-tan.github.io/favicon.ico?v=1572527666540">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://lovectrl-tan.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://lovectrl-tan.github.io">
+        <img src="https://lovectrl-tan.github.io/images/avatar.png?v=1572527666540" class="site-logo">
+        <h1 class="site-title">LoveCtrl-Tan</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://lovectrl-tan.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">XSS</h2>
+            <div class="post-date">2019-10-31</div>
+            
+            <div class="post-content">
+              <h1 id="xss简介">XSS简介</h1>
 <p>XSS是跨站脚本攻击(Cross Site Scripting)的简写，为了不与层叠样式表混淆而改写的。此漏洞也是网站存在相当多的漏洞，仅次于SQL注入，攻击者可以使用XSS来绕过访问控制，如同源策略。利用XSS可以窃取账号，网页挂马，发动拒绝服务攻击，发送垃圾邮件等等。</p>
 <h1 id="xss原理及分类">XSS原理及分类</h1>
 <p>XSS形成的原因与SQL注入类似，也是由于程序员在开发过程中没有对用户提交的恶意数据做过滤，转义而直接输出到页面，导致用户可以利用此漏洞执行JavaScript，HTML等代码，和SQL注入不同的是XSS不一定要和数据库交互。XSS没有单一的、标准的分类，一般可以分为非持久型（反射型）、持久型（存储型）。通常人们也增加了第三种——基于DOM的XSS。反射型XSS指用户提交的数据没有存储在数据库中而是直接输出到页面，不具有存储性，一次提交只能执行一次。存储型XSS指用户提交的数据存储在了数据库，用户每一次访问都会触发XSS，一次提交可以一直执行，其危害是XSS中最大的。基于DOM的XSS指用户可以修改浏览器中的DOM节点并显示在浏览器上，从而产生XSS。<a href="http://blog.nsfocus.net/xss-advance/">那年我们看不懂的xss</a></p>
@@ -215,60 +290,47 @@ generateSessionToken();
 <p>参考文章:<br>
 1.https://blog.csdn.net/qq_32261191/article/details/80959103#%E6%9C%80%E5%90%8E%E6%B3%A8%E5%85%A5%E9%80%89%E9%A1%B9<br>
 2.http://192.168.153.130/dvwa/vulnerabilities/xss_r/?name=<script>alert(/xss/)&lt;%2Fscript&gt;#</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[SQL Injection(Blind)]]></title>
-        <id>https://lovectrl-tan.github.io/post/sql-injectionblind</id>
-        <link href="https://lovectrl-tan.github.io/post/sql-injectionblind">
-        </link>
-        <updated>2019-10-31T10:43:57.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="low">Low</h1>
-<p>首先我们看到到就是让你输入<code>UserID</code><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191031184653.png" alt=""><br>
-通过输入我们发现，当你输入ID时，它会提示你是否存在该ID<br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191031184731.png" alt=""><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191031184739.png" alt=""><br>
-这种情况，我们可以使用以下几种方法</p>
-<h2 id="报错注入">报错注入</h2>
-<p>这种注入方法是当页面只返回对错时使用的，首先我们来判断字段数<br>
-<code>1' order by</code><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191031185744.png" alt=""><br>
-<img src="https://raw.githubusercontent.com/LoveCtrl-Tan/BlogPicture-/master/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20191031185757.png" alt=""><br>
-判断字段数为<code>2</code>，现在我们来认识几个函数</p>
-<pre><code>substr(string,start,length)，返回字符串的一部分。
-string-指定要截取的字符串。
-start-必需，规定在字符串的何处开始。
-length-可选，指定要截取的字符串长度，缺省时返回字符表达式的值结束前的全部字符。
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[DVWA]]></title>
-        <id>https://lovectrl-tan.github.io/post/dvwa</id>
-        <link href="https://lovectrl-tan.github.io/post/dvwa">
-        </link>
-        <updated>2019-10-19T13:13:43.000Z</updated>
-        <content type="html"><![CDATA[<ul>
-<li><a href="https://lovectrl-tan.github.io/post/file-upload/">File Upload</a></li>
-<li><a href="https://lovectrl-tan.github.io/post/csrf/">CSRF</a></li>
-<li><a href="https://lovectrl-tan.github.io/post/sql-injection/">SQL Injection</a></li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[SQL-LABS]]></title>
-        <id>https://lovectrl-tan.github.io/post/sql-labs</id>
-        <link href="https://lovectrl-tan.github.io/post/sql-labs">
-        </link>
-        <updated>2019-10-17T11:05:01.000Z</updated>
-        <content type="html"><![CDATA[<ul>
-<li><a href="https://lovectrl-tan.github.io/post/sqli-zhu-ru/">GET-Error based - Single quotes-String Less-1</a></li>
-<li><a href="https://lovectrl-tan.github.io/post/di-er-guan/">GET-Error based-intiger based Less-2</a></li>
-<li><a href="https://lovectrl-tan.github.io/post/di-san-guan/">GET-Error bases-Single quotes with twist-string Less-3</a></li>
-<li><a href="https://lovectrl-tan.github.io/post/di-si-guan/">GET -Error based-Double Quotes-String Less-4</a></li>
-<li><a href="https://lovectrl-tan.github.io/post/di-wu-guan/">GET - Double injection-Single Quotes-String Less-5</a></li>
-</ul>
-]]></content>
-    </entry>
-</feed>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://lovectrl-tan.github.io/post/sql-injectionblind">
+                  <h3 class="post-title">
+                    SQL Injection(Blind)
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>
